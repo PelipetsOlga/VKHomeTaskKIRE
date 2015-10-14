@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">VKHomeTaskKIRE</string>
     <string name="action_settings">Settings</string>
+
+    <string name="friends">друзей</string>
+    <string name="groups">групп</string>
+    <string name="fotos">фото</string>
+    <string name="profile">Профиль</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="title_activity_start">StartActivity</string>
 </resources>
