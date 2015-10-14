@@ -121,6 +121,34 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_button_background"
+                    android:text="@string/write_wall"
+                    android:textColor="@android:color/white" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:background="@drawable/blue_button_background"
+                    android:src="@drawable/icon_camera" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

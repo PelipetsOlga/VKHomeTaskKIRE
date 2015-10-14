@@ -24,7 +24,15 @@ public class UtilsVK {
 
     public static void setList() {
        list=new ArrayList<User>();
-        list.add(new User(User.SEX_WOMAN,"Olga", "Pelipets","Olyalya", "Kharkov", "Ukraine", new String[]{"avatar1.jpg", "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg"}, null, "В активном поиске счастья жизни", null, true,true, true, true, true, 0, 0, new int[]{2,3}));
+      list.add(new User(User.SEX_WOMAN,"Olga", "Pelipets","Olyalya", "Kharkov", "Ukraine",
+              new String[]{"avatar1.jpg", "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg"},
+              null, "В активном поиске счастья жизни", null, true,true, true, true, true, 0, 0, new int[]{2,3}));
+        list.add(new User(User.SEX_WOMAN,"Kate", "Djenkins","Katyuha", "Kharkov", "Ukraine",
+                new String[]{ "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg"},
+                null, "No Martini, no party.", null, true,true, true, true, true, 0, 0, new int[]{1,3}));
+        list.add(new User(User.SEX_MAN,"Dennis", "Markins","Den49", "Kiev", "Ukraine",
+                new String[]{ "photo9.jpg", "photo8.jpg", "photo7.jpg", "photo6.jpg"},
+                null, "Life is speed", null, false,true, true, true, true, 0, 0, new int[]{1,2}));
 
     }
 
