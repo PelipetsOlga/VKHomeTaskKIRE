@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class UtilsVK {
     public static final String TAG_ID="tag_id";
+    public static final String TAG_PATH="tag_path";
 
     public static ArrayList<User> getList() {
         return list;

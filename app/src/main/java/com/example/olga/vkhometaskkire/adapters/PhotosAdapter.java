@@ -29,7 +29,7 @@ public class PhotosAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //if (position)
+       // if (position==0) return null;
         ImageView view= null;
         if (convertView==null){
           view=new  ImageView(ctx);
