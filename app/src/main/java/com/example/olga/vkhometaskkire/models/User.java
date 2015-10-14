@@ -7,19 +7,20 @@ public class User {
     private int id, sex;
     public static final int SEX_MAN=0;
     public static final int SEX_WOMAN=1;
-    private String firstName, lastName, nickname, city, country, photo, education, status, universities;
+    private String firstName, lastName, nickname, city, country, education, status, universities;
+    private String []photos;
     private boolean online, hasMobile, canWritePrivateMessage, canSeeAllPosts, canPost;
     private long birthday, lastSeen;
-    private int[] relation;
+    private int[] friends;
 
-    public User(int sex, String firstName, String lastName, String nickname, String city, String country, String photo, String education, String status, String universities, boolean online, boolean hasMobile, boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost, long birthday, long lastSeen, int[] relation) {
+    public User(int sex, String firstName, String lastName, String nickname, String city, String country, String [] photo, String education, String status, String universities, boolean online, boolean hasMobile, boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost, long birthday, long lastSeen, int[] relation) {
         this.sex = sex;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
         this.city = city;
         this.country = country;
-        this.photo = photo;
+        this.photos = photo;
         this.education = education;
         this.status = status;
         this.universities = universities;
@@ -30,7 +31,7 @@ public class User {
         this.canPost = canPost;
         this.birthday = birthday;
         this.lastSeen = lastSeen;
-        this.relation = relation;
+        this.friends = relation;
     }
 
     public int getId() {
@@ -89,12 +90,12 @@ public class User {
         this.country = country;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String [] getPhotos() {
+        return photos;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotos(String [] photos) {
+        this.photos = photos;
     }
 
     public String getEducation() {
@@ -177,12 +178,12 @@ public class User {
         this.lastSeen = lastSeen;
     }
 
-    public int[] getRelation() {
-        return relation;
+    public int[] getFriends() {
+        return friends;
     }
 
-    public void setRelation(int[] relation) {
-        this.relation = relation;
+    public void setFriends(int[] friends) {
+        this.friends = friends;
     }
 
     public String getName(){
