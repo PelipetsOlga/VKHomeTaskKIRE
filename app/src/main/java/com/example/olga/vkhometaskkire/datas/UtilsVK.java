@@ -18,6 +18,7 @@ public class UtilsVK {
     public static final String TAG_ID = "tag_id";
     public static final String TAG_ID_ARRAY = "tag_id_array";
     public static final String TAG_PATH = "tag_path";
+    public static final String TAG_SHOW_PHOTO_MODE="show_photo_mode";
 
     public static ArrayList<User> getList() {
         return list;

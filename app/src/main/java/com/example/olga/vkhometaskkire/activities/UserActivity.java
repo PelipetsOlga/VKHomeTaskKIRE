@@ -63,8 +63,10 @@ public class UserActivity extends AppCompatActivity {
         }
 
         photos = user.getPhotos();
+
         if (photos != null && photos.length != 0) {
             try {
+                counterFotos.setText(Integer.toString(photos.length));
                 String avatarPath = photos[0];
                 Bitmap bitmap = UtilsVK.getBitmapFromAssets(UserActivity.this, avatarPath);
                 if (bitmap != null)
@@ -81,6 +83,7 @@ public class UserActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(UserActivity.this, BigPhotoActivity.class);
+                    intent.putExtra(UtilsVK.TAG_SHOW_PHOTO_MODE, BigPhotoActivity.SHOW_ONE_PHOTO);
                     intent.putExtra(UtilsVK.TAG_PATH, photos[position]);
                     startActivity(intent);
 
@@ -121,6 +124,11 @@ public class UserActivity extends AppCompatActivity {
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int userId=user.getId();
+                Intent photosUser=new Intent(UserActivity.this, BigPhotoActivity.class);
+                photosUser.putExtra(UtilsVK.TAG_SHOW_PHOTO_MODE, BigPhotoActivity.SHOW_ALL_PHOTOS);
+                photosUser.putExtra(UtilsVK.TAG_ID, userId);
+                startActivity(photosUser);
 
             }
         });

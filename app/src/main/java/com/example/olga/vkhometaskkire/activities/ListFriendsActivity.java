@@ -49,7 +49,9 @@ public class ListFriendsActivity extends AppCompatActivity {
 
     private void initViews() {
         btnAll = (RadioButton) findViewById(R.id.btn_all);
+        btnAll.setText(getResources().getString(R.string.tab_friends_all)+" "+allFriends.size());
         btnOnline = (RadioButton) findViewById(R.id.btn_online);
+        btnOnline.setText(getResources().getString(R.string.tab_friends_online)+" "+allFriendsOnline.size());
         btnAll.setChecked(true);
         currentList=allFriends;
         btnAll.setOnClickListener(new ButtonClickListener());
