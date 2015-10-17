@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.olga.vkhometaskkire.R;
 import com.example.olga.vkhometaskkire.adapters.FriendsAdapter;
@@ -16,9 +18,12 @@ import java.util.ArrayList;
 
 public class ListFriendsActivity extends AppCompatActivity {
 
-
+    private ArrayList<User> currentList;
     private ArrayList<User> allFriends;
     private ArrayList<User> allFriendsOnline;
+    private RadioButton btnAll, btnOnline;
+    private FriendsAdapter adapter;
+    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +36,27 @@ public class ListFriendsActivity extends AppCompatActivity {
         allFriends = new ArrayList<User>();
         allFriendsOnline = new ArrayList<User>();
 
-        for (User us:allPeople){
-            if (us.isFriend(friendsId)){
+        for (User us : allPeople) {
+            if (us.isFriend(friendsId)) {
                 allFriends.add(us);
                 if (us.isOnline())
                     allFriendsOnline.add(us);
             }
         }
 
-        ListView lv = (ListView) findViewById(R.id.lv_friends);
-        FriendsAdapter adapter = new FriendsAdapter(this, 0, allFriends);
+        initViews();
+    }
+
+    private void initViews() {
+        btnAll = (RadioButton) findViewById(R.id.btn_all);
+        btnOnline = (RadioButton) findViewById(R.id.btn_online);
+        btnAll.setChecked(true);
+        currentList=allFriends;
+        btnAll.setOnClickListener(new ButtonClickListener());
+        btnOnline.setOnClickListener(new ButtonClickListener());
+
+        lv = (ListView) findViewById(R.id.lv_friends);
+        adapter = new FriendsAdapter(this, 0, currentList);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -53,5 +69,26 @@ public class ListFriendsActivity extends AppCompatActivity {
                 ListFriendsActivity.this.finish();
             }
         });
+    }
+
+    private class ButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_all:
+                    currentList=allFriends;
+                    btnOnline.setChecked(false);
+                    btnAll.setChecked(true);
+                    break;
+                case R.id.btn_online:
+                    currentList=allFriendsOnline;
+                    btnOnline.setChecked(true);
+                    btnAll.setChecked(false);
+                    break;
+
+            }
+            adapter = new FriendsAdapter(ListFriendsActivity.this, 0, currentList);
+            lv.setAdapter(adapter);
+        }
     }
 }

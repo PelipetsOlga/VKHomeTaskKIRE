@@ -9,13 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <RadioButton
             android:id="@+id/btn_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/tab_friends"
-            android:clickable="true"
+            android:button="@null"
+            android:clickable="false"
             android:gravity="center"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
@@ -23,12 +24,13 @@
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/btn_online"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/tab_friends"
+            android:button="@null"
             android:clickable="true"
             android:gravity="center"
             android:paddingBottom="8dp"

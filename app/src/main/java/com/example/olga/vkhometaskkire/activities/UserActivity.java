@@ -30,6 +30,7 @@ public class UserActivity extends AppCompatActivity {
     private Gallery horizontalGridView;
     private String[] photos;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
