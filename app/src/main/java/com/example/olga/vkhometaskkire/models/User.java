@@ -13,7 +13,8 @@ public class User {
     private long birthday, lastSeen;
     private int[] friends;
 
-    public User(int sex, String firstName, String lastName, String nickname, String city, String country, String [] photo, String education, String status, String universities, boolean online, boolean hasMobile, boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost, long birthday, long lastSeen, int[] relation) {
+    public User(int id, int sex, String firstName, String lastName, String nickname, String city, String country, String [] photo, String education, String status, String universities, boolean online, boolean hasMobile, boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost, long birthday, long lastSeen, int[] relation) {
+       this.id=id;
         this.sex = sex;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -188,5 +189,12 @@ public class User {
 
     public String getName(){
         return lastName+" "+firstName;
+    }
+
+    public boolean isFriend(int[] friendsId) {
+        for (int i:friendsId){
+            if (id==i) return true;
+        }
+        return false;
     }
 }

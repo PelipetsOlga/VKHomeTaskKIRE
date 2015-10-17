@@ -41,7 +41,7 @@ public class StartActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Intent intent = new Intent(StartActivity.this, UserActivity.class);
-            intent.putExtra(UtilsVK.TAG_ID, 0);
+            intent.putExtra(UtilsVK.TAG_ID, 1);
             startActivity(intent);
         }
     }

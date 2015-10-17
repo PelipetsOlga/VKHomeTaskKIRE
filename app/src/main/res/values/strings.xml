@@ -11,4 +11,7 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_big_photo">BigPhotoActivity</string>
     <string name="write_wall">Написать на стене</string>
+    <string name="tab_friends_all">Все</string>
+    <string name="tab_friends_online">В сети</string>
+
 </resources>
