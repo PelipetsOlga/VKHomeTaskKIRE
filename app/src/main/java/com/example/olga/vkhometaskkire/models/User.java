@@ -13,7 +13,21 @@ public class User {
     private long birthday, lastSeen;
     private int[] friends;
 
-    public User(int id, int sex, String firstName, String lastName, String nickname, String city, String country, String [] photo, String education, String status, String universities, boolean online, boolean hasMobile, boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost, long birthday, long lastSeen, int[] relation) {
+    public int[] getVideos() {
+        return videos;
+    }
+
+    public void setVideos(int[] videos) {
+        this.videos = videos;
+    }
+
+    private int[] videos;
+
+    public User(int id, int sex, String firstName, String lastName, String nickname,
+                String city, String country, String [] photo, String education,
+                String status, String universities, boolean online, boolean hasMobile,
+                boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost,
+                long birthday, long lastSeen, int[] relation, int []videos) {
        this.id=id;
         this.sex = sex;
         this.firstName = firstName;
@@ -33,6 +47,7 @@ public class User {
         this.birthday = birthday;
         this.lastSeen = lastSeen;
         this.friends = relation;
+        this.videos=videos;
     }
 
     public int getId() {

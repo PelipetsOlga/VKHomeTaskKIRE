@@ -64,11 +64,13 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:columnCount="3"
                 android:orientation="horizontal"
-                android:padding="4dp">
+                android:padding="4dp"
+                android:rowCount="2">
 
 
                 <LinearLayout
@@ -112,7 +114,35 @@
                         style="@style/btn_counter_text"
                         android:text="@string/fotos" />
                 </LinearLayout>
-            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_audio"
+                    style="@style/btn_layout_dark_grey">
+
+                    <TextView
+                        android:id="@+id/counter_audio"
+                        style="@style/btn_counter_number"
+                        android:text="0" />
+
+                    <TextView
+                        style="@style/btn_counter_text"
+                        android:text="@string/audio" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_video"
+                    style="@style/btn_layout_dark_grey">
+
+                    <TextView
+                        android:id="@+id/counter_video"
+                        style="@style/btn_counter_number"
+                        android:text="0" />
+
+                    <TextView
+                        style="@style/btn_counter_text"
+                        android:text="@string/video" />
+                </LinearLayout>
+            </GridLayout>
 
 
             <Gallery
@@ -141,15 +171,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:paddingTop="8dp"
+                    android:background="@drawable/blue_button_background"
                     android:paddingBottom="8dp"
                     android:paddingLeft="24dp"
                     android:paddingRight="24dp"
-                    android:background="@drawable/blue_button_background"
+                    android:paddingTop="8dp"
                     android:src="@drawable/icon_camera" />
             </LinearLayout>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

@@ -5,6 +5,8 @@
     <string name="friends">друзей</string>
     <string name="groups">групп</string>
     <string name="fotos">фото</string>
+    <string name="audio">аудио</string>
+    <string name="video">видео</string>
     <string name="profile">Профиль</string>
     <string name="online">Online</string>
     <string name="offline">Offline</string>
@@ -13,5 +15,6 @@
     <string name="write_wall">Написать на стене</string>
     <string name="tab_friends_all">Все</string>
     <string name="tab_friends_online">В сети</string>
+    <string name="title_activity_list_videos">ListVideosActivity</string>
 
 </resources>
