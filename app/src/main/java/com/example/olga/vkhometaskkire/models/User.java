@@ -5,10 +5,10 @@ package com.example.olga.vkhometaskkire.models;
  */
 public class User {
     private int id, sex;
-    public static final int SEX_MAN=0;
-    public static final int SEX_WOMAN=1;
+    public static final int SEX_MAN = 0;
+    public static final int SEX_WOMAN = 1;
     private String firstName, lastName, nickname, city, country, education, status, universities;
-    private String []photos;
+    private String[] photos;
     private boolean online, hasMobile, canWritePrivateMessage, canSeeAllPosts, canPost;
     private long birthday, lastSeen;
     private int[] friends;
@@ -23,12 +23,22 @@ public class User {
 
     private int[] videos;
 
+    public int[] getAudio() {
+        return audio;
+    }
+
+    public void setAudio(int[] audio) {
+        this.audio = audio;
+    }
+
+    private int[] audio;
+
     public User(int id, int sex, String firstName, String lastName, String nickname,
-                String city, String country, String [] photo, String education,
+                String city, String country, String[] photo, String education,
                 String status, String universities, boolean online, boolean hasMobile,
                 boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost,
-                long birthday, long lastSeen, int[] relation, int []videos) {
-       this.id=id;
+                long birthday, long lastSeen, int[] relation, int[] videos, int[] audio) {
+        this.id = id;
         this.sex = sex;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,7 +57,8 @@ public class User {
         this.birthday = birthday;
         this.lastSeen = lastSeen;
         this.friends = relation;
-        this.videos=videos;
+        this.videos = videos;
+        this.audio = audio;
     }
 
     public int getId() {
@@ -106,11 +117,11 @@ public class User {
         this.country = country;
     }
 
-    public String [] getPhotos() {
+    public String[] getPhotos() {
         return photos;
     }
 
-    public void setPhotos(String [] photos) {
+    public void setPhotos(String[] photos) {
         this.photos = photos;
     }
 
@@ -202,13 +213,13 @@ public class User {
         this.friends = friends;
     }
 
-    public String getName(){
-        return lastName+" "+firstName;
+    public String getName() {
+        return lastName + " " + firstName;
     }
 
     public boolean isFriend(int[] friendsId) {
-        for (int i:friendsId){
-            if (id==i) return true;
+        for (int i : friendsId) {
+            if (id == i) return true;
         }
         return false;
     }

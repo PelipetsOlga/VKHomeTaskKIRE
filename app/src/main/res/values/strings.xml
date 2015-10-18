@@ -17,6 +17,8 @@
     <string name="tab_friends_online">В сети</string>
     <string name="title_activity_list_videos">ListVideosActivity</string>
     <string name="videos_actionbar_title">Видеозаписи</string>
+    <string name="audio_actionbar_title">Аудиозаписи</string>
     <string name="title_activity_big_video">BigVideoActivity</string>
+    <string name="title_activity_list_audio">ListAudioActivity</string>
 
 </resources>

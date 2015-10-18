@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -43,6 +44,7 @@ public class BigVideoActivity extends AppCompatActivity {
         } else {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle(video.getTitle());
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
             VideoView videoView = (VideoView) findViewById(R.id.video);
             String videoSource = video.getLink();
@@ -55,5 +57,16 @@ public class BigVideoActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
 
 }

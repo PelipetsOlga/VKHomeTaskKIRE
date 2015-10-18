@@ -2,22 +2,16 @@ package com.example.olga.vkhometaskkire.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.example.olga.vkhometaskkire.R;
 import com.example.olga.vkhometaskkire.adapters.PhotosAdapter;
@@ -41,8 +35,6 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.person);
-
-
 
         Intent intent = getIntent();
         id = intent.getIntExtra(UtilsVK.TAG_ID, 1);
@@ -130,6 +122,13 @@ public class UserActivity extends AppCompatActivity {
             int countVideo = user.getVideos().length;
             counterVideo.setText(Integer.toString(countVideo));
         }
+
+        if (user.getAudio() == null || user.getAudio().length == 0) {
+            counterAudio.setText("0");
+        } else {
+            int countAudio = user.getAudio().length;
+            counterAudio.setText(Integer.toString(countAudio));
+        }
     }
 
 
@@ -185,6 +184,16 @@ public class UserActivity extends AppCompatActivity {
                 Intent videoIntent = new Intent(UserActivity.this, ListVideosActivity.class);
                 videoIntent.putExtra(UtilsVK.TAG_ID_ARRAY, videosId);
                 startActivity(videoIntent);
+            }
+        });
+
+        btnAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int[] audioId = user.getAudio();
+                Intent audioIntent = new Intent(UserActivity.this, ListAudioActivity.class);
+                audioIntent.putExtra(UtilsVK.TAG_ID_ARRAY, audioId);
+                startActivity(audioIntent);
             }
         });
 

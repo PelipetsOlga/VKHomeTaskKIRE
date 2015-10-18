@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -57,6 +58,7 @@ public class BigPhotoActivity extends AppCompatActivity {
                 actionBar = getSupportActionBar();
                 actionBar.setDisplayShowHomeEnabled(true);
                 actionBar.setTitle(user.getName());
+                actionBar.setDisplayHomeAsUpEnabled(true);
 
                 final String[] photos = user.getPhotos();
                 if (photos != null && photos.length != 0) {
@@ -90,6 +92,17 @@ public class BigPhotoActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
 
     private class OnSwipeTouchListener implements View.OnTouchListener {
 
