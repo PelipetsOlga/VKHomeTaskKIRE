@@ -47,4 +47,11 @@ public class VideoRecord {
         this.title = title;
         this.link = link;
     }
+
+    public boolean isMember(int[] videosId) {
+        for (int i : videosId) {
+            if (id == i) return true;
+        }
+        return false;
+    }
 }

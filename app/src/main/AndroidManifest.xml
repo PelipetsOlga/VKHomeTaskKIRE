@@ -30,7 +30,13 @@
         <activity
             android:name=".activities.ListVideosActivity"
             android:label="@string/title_activity_list_videos"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".activities.BigVideoActivity"
+            android:label="@string/title_activity_big_video"
+            android:theme="@style/AppTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
     </application>
 

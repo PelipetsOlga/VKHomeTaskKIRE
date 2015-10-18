@@ -42,14 +42,7 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.person);
 
-     /*   VideoView videoView = (VideoView) findViewById(R.id.video);
-        String videoSource ="android.resource://com.example.olga.vkhometaskkire/" + R.raw.video1;
-        videoView.setVideoURI(Uri.parse(videoSource));
 
-        videoView.setMediaController(new MediaController(this));
-        videoView.requestFocus(0);
-        videoView.start();
-*/
 
         Intent intent = getIntent();
         id = intent.getIntExtra(UtilsVK.TAG_ID, 1);
@@ -188,7 +181,10 @@ public class UserActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                final int[] videosId = user.getVideos();
+                Intent videoIntent = new Intent(UserActivity.this, ListVideosActivity.class);
+                videoIntent.putExtra(UtilsVK.TAG_ID_ARRAY, videosId);
+                startActivity(videoIntent);
             }
         });
 
