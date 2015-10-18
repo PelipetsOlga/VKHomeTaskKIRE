@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Gallery;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ public class UserActivity extends AppCompatActivity {
     private int id;
     private TextView name, online, status, counterFriends, counterGroups, counterFotos, counterAudio, counterVideo;
     private LinearLayout btnFriends, btnGroups, btnFotos, btnAudio, btnVideo;
+    private Button btnWrite;
+    private ImageButton btnCaptureOrGift;
     private User user;
     private ActionBar actionBar;
     private ImageView avatar;
@@ -58,8 +62,12 @@ public class UserActivity extends AppCompatActivity {
     private void setDatas(User user) {
         if (id == 1) {
             actionBar.setTitle(getResources().getString(R.string.profile));
+            btnWrite.setText(getResources().getString(R.string.write_wall));
+            btnCaptureOrGift.setImageResource(R.drawable.icon_camera);
         } else {
             actionBar.setTitle(user.getName());
+            btnWrite.setText(getResources().getString(R.string.write_private));
+            btnCaptureOrGift.setImageResource(R.drawable.icon_gift);
         }
 
         photos = user.getPhotos();
@@ -147,6 +155,8 @@ public class UserActivity extends AppCompatActivity {
         btnGroups = (LinearLayout) findViewById(R.id.btn_groups);
         btnAudio = (LinearLayout) findViewById(R.id.btn_audio);
         btnVideo = (LinearLayout) findViewById(R.id.btn_video);
+        btnWrite=(Button)findViewById(R.id.btn_write_wall_private);
+        btnCaptureOrGift=(ImageButton)findViewById(R.id.btn_capture_gift);
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
