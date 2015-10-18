@@ -25,10 +25,10 @@
     <style name="btn_layout_dark_grey">
         <item name="android:layout_margin">4dp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">fill_horizontal</item>
-
+        <item name="android:layout_gravity">left</item>
         <item name="android:clickable">true</item>
         <item name="android:background">@drawable/btn_background</item>
         <item name="android:orientation">vertical</item>
