@@ -12,32 +12,16 @@ public class User {
     private boolean online, hasMobile, canWritePrivateMessage, canSeeAllPosts, canPost;
     private long birthday, lastSeen;
     private int[] friends;
-
-    public int[] getVideos() {
-        return videos;
-    }
-
-    public void setVideos(int[] videos) {
-        this.videos = videos;
-    }
-
+    private int[] groups;
+    private int[] audio;
     private int[] videos;
 
-    public int[] getAudio() {
-        return audio;
-    }
-
-    public void setAudio(int[] audio) {
-        this.audio = audio;
-    }
-
-    private int[] audio;
 
     public User(int id, int sex, String firstName, String lastName, String nickname,
                 String city, String country, String[] photo, String education,
                 String status, String universities, boolean online, boolean hasMobile,
                 boolean canWritePrivateMessage, boolean canSeeAllPosts, boolean canPost,
-                long birthday, long lastSeen, int[] relation, int[] videos, int[] audio) {
+                long birthday, long lastSeen, int[] relation, int[] videos, int[] audio, int[] groups) {
         this.id = id;
         this.sex = sex;
         this.firstName = firstName;
@@ -59,6 +43,7 @@ public class User {
         this.friends = relation;
         this.videos = videos;
         this.audio = audio;
+        this.groups = groups;
     }
 
     public int getId() {
@@ -217,9 +202,49 @@ public class User {
         return lastName + " " + firstName;
     }
 
+    public int[] getVideos() {
+        return videos;
+    }
+
+    public void setVideos(int[] videos) {
+        this.videos = videos;
+    }
+
+    public int[] getAudio() {
+        return audio;
+    }
+
+    public void setAudio(int[] audio) {
+        this.audio = audio;
+    }
+
+
+    public int[] getGroups() {
+        return groups;
+    }
+
+    public void setGroups(int[] groups) {
+        this.groups = groups;
+    }
+
+
     public boolean isFriend(int[] friendsId) {
         for (int i : friendsId) {
             if (id == i) return true;
+        }
+        return false;
+    }
+
+    public boolean isMember(int[] membersId) {
+        for (int i : membersId) {
+            if (id == i) return true;
+        }
+        return false;
+    }
+
+    public boolean isMyFriend() {
+        for (int i : friends) {
+            if (i==1) return true;
         }
         return false;
     }

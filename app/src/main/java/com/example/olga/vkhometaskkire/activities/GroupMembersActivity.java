@@ -1,15 +1,15 @@
 package com.example.olga.vkhometaskkire.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.example.olga.vkhometaskkire.R;
 import com.example.olga.vkhometaskkire.adapters.FriendsAdapter;
@@ -18,12 +18,12 @@ import com.example.olga.vkhometaskkire.models.User;
 
 import java.util.ArrayList;
 
-public class ListFriendsActivity extends AppCompatActivity {
+public class GroupMembersActivity extends AppCompatActivity {
 
     private ArrayList<User> currentList;
-    private ArrayList<User> allFriends;
-    private ArrayList<User> allFriendsOnline;
-    private RadioButton btnAll, btnOnline;
+    private ArrayList<User> allMembers;
+    private ArrayList<User>  allMembersFriends;
+    private RadioButton btnAll, btnFriends;
     private FriendsAdapter adapter;
     private ListView lv;
 
@@ -32,22 +32,25 @@ public class ListFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_friends_layout);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setTitle(getResources().getString(R.string.action_bar_friends));
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         Intent intent = getIntent();
-        final int[] friendsId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
+        final int[] membersId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
+        String title=intent.getStringExtra(UtilsVK.TAG_TITLE);
+        if (!TextUtils.isEmpty(title)){
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setTitle(title);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         ArrayList<User> allPeople = UtilsVK.getList();
-        allFriends = new ArrayList<User>();
-        allFriendsOnline = new ArrayList<User>();
+        allMembers = new ArrayList<User>();
+          allMembersFriends = new ArrayList<User>();
 
         for (User us : allPeople) {
-            if (us.isFriend(friendsId)) {
-                allFriends.add(us);
-                if (us.isOnline())
-                    allFriendsOnline.add(us);
+            if (us.isMember(membersId)) {
+                allMembers.add(us);
+                if (us.isMyFriend())
+                      allMembersFriends.add(us);
             }
         }
 
@@ -56,13 +59,13 @@ public class ListFriendsActivity extends AppCompatActivity {
 
     private void initViews() {
         btnAll = (RadioButton) findViewById(R.id.btn_all);
-        btnAll.setText(getResources().getString(R.string.tab_friends_all) + " " + allFriends.size());
-        btnOnline = (RadioButton) findViewById(R.id.btn_online);
-        btnOnline.setText(getResources().getString(R.string.tab_friends_online)+" "+allFriendsOnline.size());
+        btnAll.setText(getResources().getString(R.string.tab_members_all));
+        btnFriends = (RadioButton) findViewById(R.id.btn_online);
+        btnFriends.setText(getResources().getString(R.string.tab_members_friends));
         btnAll.setChecked(true);
-        currentList=allFriends;
+        currentList= allMembers;
         btnAll.setOnClickListener(new ButtonClickListener());
-        btnOnline.setOnClickListener(new ButtonClickListener());
+        btnFriends.setOnClickListener(new ButtonClickListener());
 
         lv = (ListView) findViewById(R.id.lv_friends);
         adapter = new FriendsAdapter(this, 0, currentList);
@@ -71,11 +74,11 @@ public class ListFriendsActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User selectedUser = allFriends.get(position);
-                Intent intent = new Intent(ListFriendsActivity.this, UserActivity.class);
+                User selectedUser = allMembers.get(position);
+                Intent intent = new Intent(GroupMembersActivity.this, UserActivity.class);
                 intent.putExtra(UtilsVK.TAG_ID, selectedUser.getId());
                 startActivity(intent);
-                ListFriendsActivity.this.finish();
+                GroupMembersActivity.this.finish();
             }
         });
     }
@@ -96,18 +99,18 @@ public class ListFriendsActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_all:
-                    currentList=allFriends;
-                    btnOnline.setChecked(false);
+                    currentList= allMembers;
+                    btnFriends.setChecked(false);
                     btnAll.setChecked(true);
                     break;
                 case R.id.btn_online:
-                    currentList=allFriendsOnline;
-                    btnOnline.setChecked(true);
+                    currentList=  allMembersFriends;
+                    btnFriends.setChecked(true);
                     btnAll.setChecked(false);
                     break;
 
             }
-            adapter = new FriendsAdapter(ListFriendsActivity.this, 0, currentList);
+            adapter = new FriendsAdapter(GroupMembersActivity.this, 0, currentList);
             lv.setAdapter(adapter);
         }
     }

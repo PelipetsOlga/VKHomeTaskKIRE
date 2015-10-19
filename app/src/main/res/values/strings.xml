@@ -16,10 +16,18 @@
     <string name="write_private">Личное сообщение</string>
     <string name="tab_friends_all">Все</string>
     <string name="tab_friends_online">В сети</string>
+    <string name="tab_members_all">Участники</string>
+    <string name="tab_members_friends">Друзья</string>
     <string name="title_activity_list_videos">ListVideosActivity</string>
     <string name="videos_actionbar_title">Видеозаписи</string>
     <string name="audio_actionbar_title">Аудиозаписи</string>
     <string name="title_activity_big_video">BigVideoActivity</string>
     <string name="title_activity_list_audio">ListAudioActivity</string>
+    <string name="title_activity_list_groups">ListGroupsActivity</string>
+    <string name="group_is_closed">Закрытая группа</string>
+    <string name="group_is_opened">Открытая группа</string>
+    <string name="action_bar_group">Группы</string>
+    <string name="action_bar_friends">Друзья</string>
+    <string name="title_activity_group_members">GroupMembersActivity</string>
 
 </resources>

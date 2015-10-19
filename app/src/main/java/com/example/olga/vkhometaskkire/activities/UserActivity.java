@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -113,7 +114,7 @@ public class UserActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(user.getStatus())) {
             status.setText(user.getStatus());
-        }else{
+        } else {
             status.setVisibility(View.GONE);
         }
 
@@ -122,6 +123,13 @@ public class UserActivity extends AppCompatActivity {
         } else {
             int countFriends = user.getFriends().length;
             counterFriends.setText(Integer.toString(countFriends));
+        }
+
+        if (user.getGroups() == null || user.getGroups().length == 0) {
+            counterGroups.setText("0");
+        } else {
+            int countGroups = user.getGroups().length;
+            counterGroups.setText(Integer.toString(countGroups));
         }
 
         if (user.getVideos() == null || user.getVideos().length == 0) {
@@ -155,8 +163,8 @@ public class UserActivity extends AppCompatActivity {
         btnGroups = (LinearLayout) findViewById(R.id.btn_groups);
         btnAudio = (LinearLayout) findViewById(R.id.btn_audio);
         btnVideo = (LinearLayout) findViewById(R.id.btn_video);
-        btnWrite=(Button)findViewById(R.id.btn_write_wall_private);
-        btnCaptureOrGift=(ImageButton)findViewById(R.id.btn_capture_gift);
+        btnWrite = (Button) findViewById(R.id.btn_write_wall_private);
+        btnCaptureOrGift = (ImageButton) findViewById(R.id.btn_capture_gift);
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +191,12 @@ public class UserActivity extends AppCompatActivity {
         btnGroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final int[] groupsId = user.getGroups();
+                if (groupsId != null && groupsId.length != 0) {
+                    Intent groupsIntent = new Intent(UserActivity.this, ListGroupsActivity.class);
+                    groupsIntent.putExtra(UtilsVK.TAG_ID_ARRAY, groupsId);
+                    startActivity(groupsIntent);
+                }
             }
         });
 
@@ -213,7 +226,23 @@ public class UserActivity extends AppCompatActivity {
     private void restoreActionBar() {
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setIcon(getResources().getDrawable(R.drawable.ic_menu));
+        if (id==1) {
+            actionBar.setIcon(getResources().getDrawable(R.drawable.ic_menu));
+            actionBar.setTitle(getResources().getString(R.string.profile));
+        }else{
+            actionBar.setTitle(user.getName());
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 

@@ -43,6 +43,16 @@
             android:label="@string/title_activity_list_audio"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name=".activities.ListGroupsActivity"
+            android:label="@string/title_activity_list_groups"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".activities.GroupMembersActivity"
+            android:label="@string/title_activity_group_members"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>
