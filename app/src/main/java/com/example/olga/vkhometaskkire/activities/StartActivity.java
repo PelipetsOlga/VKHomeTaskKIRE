@@ -15,21 +15,18 @@ import com.example.olga.vkhometaskkire.datas.UtilsVK;
 public class StartActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
         new LoadDatasTask().execute();
-
-
     }
 
     private class LoadDatasTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
-            UtilsVK.setList();
-            try {
+           try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

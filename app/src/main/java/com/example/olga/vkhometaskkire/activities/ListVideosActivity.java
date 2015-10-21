@@ -26,7 +26,7 @@ import com.example.olga.vkhometaskkire.models.VideoRecord;
 
 import java.util.ArrayList;
 
-public class ListVideosActivity extends AppCompatActivity {
+public class ListVideosActivity extends ParentActivity {
 
     private ArrayList<VideoRecord> currentList;
     private ArrayList<VideoRecord> myVideo;
@@ -34,17 +34,47 @@ public class ListVideosActivity extends AppCompatActivity {
     private ListView lv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_videos);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    private void initViews() {
+        lv = (ListView) findViewById(R.id.lv_videos);
+        adapter = new VideoAdapter(this, 0, myVideo);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListVideosActivity.this, BigVideoActivity.class);
+                intent.putExtra(UtilsVK.TAG_ID, myVideo.get(position).getId());
+                startActivity(intent);
+
+            }
+        });
+    }
+
+
+    @Override
+    void onServiceReady() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.videos_actionbar_title));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         final int[] videosId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
-        ArrayList<VideoRecord> videos = UtilsVK.getListVideo();
+        ArrayList<VideoRecord> videos = vkService.getListVideo();
         myVideo = new ArrayList<VideoRecord>();
 
         for (VideoRecord link : videos) {
@@ -55,32 +85,4 @@ public class ListVideosActivity extends AppCompatActivity {
 
         initViews();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-
-    private void initViews() {
-       lv = (ListView) findViewById(R.id.lv_videos);
-        adapter = new VideoAdapter(this, 0, myVideo);
-        lv.setAdapter(adapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(ListVideosActivity.this, BigVideoActivity.class);
-                intent.putExtra(UtilsVK.TAG_ID, myVideo.get(position).getId());
-                startActivity(intent);
-
-            }
-        });
-    }
-
-
 }

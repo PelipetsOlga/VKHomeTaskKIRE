@@ -20,7 +20,7 @@ import com.example.olga.vkhometaskkire.models.User;
 
 import java.util.ArrayList;
 
-public class BigPhotoActivity extends AppCompatActivity {
+public class BigPhotoActivity extends ParentActivity {
     private int mode;
     public static final int SHOW_ONE_PHOTO = 1;
     public static final int SHOW_ALL_PHOTOS = 2;
@@ -30,9 +30,23 @@ public class BigPhotoActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_big_photo);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    void onServiceReady() {
         image = (ImageView) findViewById(R.id.big_image);
 
         Intent intent = getIntent();
@@ -46,7 +60,7 @@ public class BigPhotoActivity extends AppCompatActivity {
             image.setImageBitmap(UtilsVK.getBitmapFromAssets(this, path));
         } else {
             int userId = intent.getIntExtra(UtilsVK.TAG_ID, 1);
-            ArrayList<User> list = UtilsVK.getList();
+            ArrayList<User> list = vkService.getList();
             User user = null;
             for (User us : list) {
                 if (us.getId() == userId) {
@@ -89,18 +103,6 @@ public class BigPhotoActivity extends AppCompatActivity {
                 }
             }
         }
-
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-
     }
 
 

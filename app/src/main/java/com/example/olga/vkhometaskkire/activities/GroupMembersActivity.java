@@ -18,7 +18,7 @@ import com.example.olga.vkhometaskkire.models.User;
 
 import java.util.ArrayList;
 
-public class GroupMembersActivity extends AppCompatActivity {
+public class GroupMembersActivity extends ParentActivity {
 
     private ArrayList<User> currentList;
     private ArrayList<User> allMembers;
@@ -28,33 +28,9 @@ public class GroupMembersActivity extends AppCompatActivity {
     private ListView lv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_friends_layout);
-
-        Intent intent = getIntent();
-        final int[] membersId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
-        String title=intent.getStringExtra(UtilsVK.TAG_TITLE);
-        if (!TextUtils.isEmpty(title)){
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setTitle(title);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        ArrayList<User> allPeople = UtilsVK.getList();
-        allMembers = new ArrayList<User>();
-          allMembersFriends = new ArrayList<User>();
-
-        for (User us : allPeople) {
-            if (us.isMember(membersId)) {
-                allMembers.add(us);
-                if (us.isMyFriend())
-                      allMembersFriends.add(us);
-            }
-        }
-
-        initViews();
     }
 
     private void initViews() {
@@ -91,6 +67,33 @@ public class GroupMembersActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    void onServiceReady() {
+        Intent intent = getIntent();
+        final int[] membersId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
+        String title=intent.getStringExtra(UtilsVK.TAG_TITLE);
+        if (!TextUtils.isEmpty(title)){
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setTitle(title);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        ArrayList<User> allPeople = vkService.getList();
+        allMembers = new ArrayList<User>();
+        allMembersFriends = new ArrayList<User>();
+
+        for (User us : allPeople) {
+            if (us.isMember(membersId)) {
+                allMembers.add(us);
+                if (us.isMyFriend())
+                    allMembersFriends.add(us);
+            }
+        }
+
+        initViews();
     }
 
 

@@ -25,7 +25,7 @@ import com.example.olga.vkhometaskkire.models.VideoRecord;
 
 import java.util.ArrayList;
 
-public class ListAudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
+public class ListAudioActivity extends ParentActivity implements MediaPlayer.OnCompletionListener {
 
     private ArrayList<AudioItem> myAudio;
     private ListView lv;
@@ -34,29 +34,9 @@ public class ListAudioActivity extends AppCompatActivity implements MediaPlayer.
     private MediaPlayer mediaPlayer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_audio);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.audio_actionbar_title));
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        Intent intent = getIntent();
-        final int[] audioIds = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
-        ArrayList<AudioTreck> list = UtilsVK.getListAudio();
-        myAudio = new ArrayList<AudioItem>();
-
-        for (AudioTreck link : list) {
-            if (link.isMember(audioIds)) {
-                myAudio.add(new AudioItem(link, AudioItem.stateNone));
-            }
-        }
-        if (myAudio == null || myAudio.size() == 0) finish();
-
-        initViews();
-
-        am = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
 
     @Override
@@ -127,6 +107,29 @@ public class ListAudioActivity extends AppCompatActivity implements MediaPlayer.
     @Override
     public void onCompletion(MediaPlayer mp) {
 
+    }
+
+    @Override
+    void onServiceReady() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.audio_actionbar_title));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        final int[] audioIds = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
+        ArrayList<AudioTreck> list = vkService.getListAudio();
+        myAudio = new ArrayList<AudioItem>();
+
+        for (AudioTreck link : list) {
+            if (link.isMember(audioIds)) {
+                myAudio.add(new AudioItem(link, AudioItem.stateNone));
+            }
+        }
+        if (myAudio == null || myAudio.size() == 0) finish();
+
+        initViews();
+
+        am = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
 
     @Override

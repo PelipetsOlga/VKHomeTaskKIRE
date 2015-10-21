@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.olga.vkhometaskkire.R;
 import com.example.olga.vkhometaskkire.adapters.PhotosAdapter;
@@ -23,7 +24,7 @@ import com.example.olga.vkhometaskkire.models.User;
 
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends ParentActivity {
     private int id;
     private TextView name, online, status, counterFriends, counterGroups, counterFotos, counterAudio, counterVideo;
     private LinearLayout btnFriends, btnGroups, btnFotos, btnAudio, btnVideo;
@@ -34,30 +35,13 @@ public class UserActivity extends AppCompatActivity {
     private ImageView avatar;
     private Gallery horizontalGridView;
     private String[] photos;
+    private ArrayList<User> list;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.person);
-
-        Intent intent = getIntent();
-        id = intent.getIntExtra(UtilsVK.TAG_ID, 1);
-
-        ArrayList<User> list = UtilsVK.getList();
-        for (User us : list) {
-            if (us.getId() == id) {
-                user = us;
-                break;
-            }
-        }
-        if (user == null) user = list.get(0);
-
-        restoreActionBar();
-        initViews();
-
-        setDatas(user);
-
     }
 
     private void setDatas(User user) {
@@ -148,7 +132,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
 
-    private void initViews() {
+    private void initViews(final User user) {
         avatar = (ImageView) findViewById(R.id.avatar_user);
         name = (TextView) findViewById(R.id.name);
         online = (TextView) findViewById(R.id.online);
@@ -169,33 +153,40 @@ public class UserActivity extends AppCompatActivity {
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int userId = user.getId();
-                Intent photosUser = new Intent(UserActivity.this, BigPhotoActivity.class);
-                photosUser.putExtra(UtilsVK.TAG_SHOW_PHOTO_MODE, BigPhotoActivity.SHOW_ALL_PHOTOS);
-                photosUser.putExtra(UtilsVK.TAG_ID, userId);
-                startActivity(photosUser);
-
+                String[] arrayPhotos = user.getPhotos();
+                if (arrayPhotos != null && arrayPhotos.length != 0) {
+                    final int userId = user.getId();
+                    Intent photosUser = new Intent(UserActivity.this, BigPhotoActivity.class);
+                    photosUser.putExtra(UtilsVK.TAG_SHOW_PHOTO_MODE, BigPhotoActivity.SHOW_ALL_PHOTOS);
+                    photosUser.putExtra(UtilsVK.TAG_ID, userId);
+                    startActivity(photosUser);
+                }
             }
         });
         btnFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int[] friendsId = user.getFriends();
-                Intent friendsIntent = new Intent(UserActivity.this, ListFriendsActivity.class);
-                friendsIntent.putExtra(UtilsVK.TAG_ID_ARRAY, friendsId);
-                startActivity(friendsIntent);
-
+                int[] arrayFriends = user.getFriends();
+                if (arrayFriends != null && arrayFriends.length != 0) {
+                    final int[] friendsId = user.getFriends();
+                    Intent friendsIntent = new Intent(UserActivity.this, ListFriendsActivity.class);
+                    friendsIntent.putExtra(UtilsVK.TAG_ID_ARRAY, friendsId);
+                    startActivity(friendsIntent);
+                }
             }
         });
 
         btnGroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int[] groupsId = user.getGroups();
-                if (groupsId != null && groupsId.length != 0) {
-                    Intent groupsIntent = new Intent(UserActivity.this, ListGroupsActivity.class);
-                    groupsIntent.putExtra(UtilsVK.TAG_ID_ARRAY, groupsId);
-                    startActivity(groupsIntent);
+                int[] arrayGroups = user.getGroups();
+                if (arrayGroups != null && arrayGroups.length != 0) {
+                    final int[] groupsId = user.getGroups();
+                    if (groupsId != null && groupsId.length != 0) {
+                        Intent groupsIntent = new Intent(UserActivity.this, ListGroupsActivity.class);
+                        groupsIntent.putExtra(UtilsVK.TAG_ID_ARRAY, groupsId);
+                        startActivity(groupsIntent);
+                    }
                 }
             }
         });
@@ -203,33 +194,39 @@ public class UserActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int[] videosId = user.getVideos();
-                Intent videoIntent = new Intent(UserActivity.this, ListVideosActivity.class);
-                videoIntent.putExtra(UtilsVK.TAG_ID_ARRAY, videosId);
-                startActivity(videoIntent);
+                int[] arrayVideo = user.getVideos();
+                if (arrayVideo != null && arrayVideo.length != 0) {
+                    final int[] videosId = user.getVideos();
+                    Intent videoIntent = new Intent(UserActivity.this, ListVideosActivity.class);
+                    videoIntent.putExtra(UtilsVK.TAG_ID_ARRAY, videosId);
+                    startActivity(videoIntent);
+                }
             }
         });
 
         btnAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int[] audioId = user.getAudio();
-                Intent audioIntent = new Intent(UserActivity.this, ListAudioActivity.class);
-                audioIntent.putExtra(UtilsVK.TAG_ID_ARRAY, audioId);
-                startActivity(audioIntent);
+                int[] arrayAudio = user.getAudio();
+                if (arrayAudio != null && arrayAudio.length != 0) {
+                    final int[] audioId = user.getAudio();
+                    Intent audioIntent = new Intent(UserActivity.this, ListAudioActivity.class);
+                    audioIntent.putExtra(UtilsVK.TAG_ID_ARRAY, audioId);
+                    startActivity(audioIntent);
+                }
             }
         });
 
         horizontalGridView = (Gallery) findViewById(R.id.horizontal_gridView);
     }
 
-    private void restoreActionBar() {
+    private void restoreActionBar(User user) {
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
-        if (id==1) {
+        if (id == 1) {
             actionBar.setIcon(getResources().getDrawable(R.drawable.ic_menu));
             actionBar.setTitle(getResources().getString(R.string.profile));
-        }else{
+        } else {
             actionBar.setTitle(user.getName());
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -247,4 +244,22 @@ public class UserActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    void onServiceReady() {
+        list = vkService.getList();
+
+        Intent intent = getIntent();
+        id = intent.getIntExtra(UtilsVK.TAG_ID, 1);
+
+        for (User us : list) {
+            if (us.getId() == id) {
+                user = us;
+                break;
+            }
+        }
+        if (user == null) user = list.get(0);
+        restoreActionBar(user);
+        initViews(user);
+        setDatas(user);
+    }
 }

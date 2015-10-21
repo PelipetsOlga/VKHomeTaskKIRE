@@ -18,7 +18,8 @@ import com.example.olga.vkhometaskkire.models.User;
 
 import java.util.ArrayList;
 
-public class ListFriendsActivity extends AppCompatActivity {
+public class ListFriendsActivity extends
+        ParentActivity {
 
     private ArrayList<User> currentList;
     private ArrayList<User> allFriends;
@@ -28,7 +29,7 @@ public class ListFriendsActivity extends AppCompatActivity {
     private ListView lv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_friends_layout);
 
@@ -37,21 +38,7 @@ public class ListFriendsActivity extends AppCompatActivity {
         actionBar.setTitle(getResources().getString(R.string.action_bar_friends));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        final int[] friendsId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
-        ArrayList<User> allPeople = UtilsVK.getList();
-        allFriends = new ArrayList<User>();
-        allFriendsOnline = new ArrayList<User>();
 
-        for (User us : allPeople) {
-            if (us.isFriend(friendsId)) {
-                allFriends.add(us);
-                if (us.isOnline())
-                    allFriendsOnline.add(us);
-            }
-        }
-
-        initViews();
     }
 
     private void initViews() {
@@ -87,6 +74,26 @@ public class ListFriendsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    void onServiceReady() {
+        Intent intent = getIntent();
+        final int[] friendsId = intent.getIntArrayExtra(UtilsVK.TAG_ID_ARRAY);
+        ArrayList<User> allPeople = vkService.getList();
+        allFriends = new ArrayList<User>();
+        allFriendsOnline = new ArrayList<User>();
+
+        for (User us : allPeople) {
+            if (us.isFriend(friendsId)) {
+                allFriends.add(us);
+                if (us.isOnline())
+                    allFriendsOnline.add(us);
+            }
+        }
+
+        initViews();
 
     }
 

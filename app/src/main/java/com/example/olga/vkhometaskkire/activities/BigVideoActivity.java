@@ -21,16 +21,30 @@ import java.util.ArrayList;
 
 import static com.example.olga.vkhometaskkire.datas.UtilsVK.*;
 
-public class BigVideoActivity extends AppCompatActivity {
+public class BigVideoActivity extends ParentActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_big_video);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+    @Override
+    void onServiceReady() {
         Intent intent = getIntent();
         final int videoId = intent.getIntExtra(UtilsVK.TAG_ID, 1);
-        ArrayList<VideoRecord> list = UtilsVK.getListVideo();
+        ArrayList<VideoRecord> list = vkService.getListVideo();
         VideoRecord video = null;
 
         for (VideoRecord link : list) {
@@ -54,19 +68,5 @@ public class BigVideoActivity extends AppCompatActivity {
             videoView.start();
 
         }
-
-
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-
-
 }
